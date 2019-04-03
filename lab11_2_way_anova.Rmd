@@ -1,0 +1,97 @@
+---
+title: "2 Way ANOVA (Highlights from Sleuth3 Chapter 13)"
+output:
+  pdf_document:
+    fig_height: 2.8
+    fig_width: 6
+  html_document:
+    fig_height: 3
+    fig_width: 5
+  word_document:
+    fig_height: 3
+    fig_width: 5
+header-includes:
+  - \usepackage{booktabs}
+  - \usepackage{vwcol}
+geometry: margin=0.5in
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache = FALSE)
+library(ggplot2)
+library(readr)
+library(dplyr)
+library(gridExtra)
+options(width = 100)
+```
+
+## Paper airplanes
+
+A motivated paper airplane thrower measured
+
+* The `Distance` travelled (response)
+* The `Design` (dart or glider) and whether or not `flaps` were put on the wings (Flaps or None)
+
+```{r, echo = FALSE, message = FALSE}
+planes <- read_csv("~/Documents/teaching/personal_site/elray1.github.io/data/sdm3/Chapter_29/Ch29_Paper_Planes.csv") %>%
+  filter(Paper == "Copier")
+```
+
+```{r, fig.height = 1.95}
+ggplot(data = planes, mapping = aes(x = flaps, y = Distance, color = Design)) +
+  geom_boxplot() +
+  theme_bw()
+```
+
+#### 1. Fit a model for the mean distance, using flaps and design as explanatory variables.  Allow for interactions between flaps and design in your model fit.  Print out a summary of the linear model fit
+
+```{r}
+lm_fit <- lm(Distance ~ flaps * Design, data = planes)
+summary(lm_fit)
+```
+
+#### 2. Write down a single equation for the estimated mean distance function based on the flaps and design variables.
+
+
+
+#### 3. State how you could use the summary output from part 1 to calculate the estimated mean distances for all four combinations of settings for flaps and design.
+
+
+
+#### 4. Based on the model fit from part 1, find a 95% confidence interval for the difference in means between glider planes with and without flaps.  Interpret your confidence interval in context.
+
+```{r}
+
+```
+
+#### 5. Based on the model fit from part 1, find a 95% confidence interval for the mean distance for glider planes that don't have flaps.  Interpret your confidence interval in context.
+
+You will have to define a new data frame with variables Design and flaps that have the appropriate variable values, and call predict using that new data frame.
+
+```{r}
+
+```
+
+#### 6. Based on the model fit from part 1, find a 95% prediction interval for the mean distance for dart planes that don't have flaps.
+
+Again, you'll have to define a suitable data frame with variables Design and flaps.
+
+```{r}
+
+```
+
+#### 7. Conduct a test of the claim that adding flaps to a plane will increase the mean distance flown by the same amount, regardless of the airplane design.  State your hypotheses in terms of equations involving the model coefficients $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$, and draw a conclusion in terms of the strength of evidence against the null hypothesis.
+
+```{r}
+
+```
+
+#### 8. Conduct a test of the claim that whether or not you add flaps to a plane has no impact on the mean distance flown.  State your hypotheses in terms of equations involving the model coefficients $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$, and draw a conclusion in terms of the strength of evidence against the null hypothesis.
+
+```{r}
+
+```
+
+#### 9. Conduct a test of the claim that all paper airplanes fly the same distance on average, across both designs and whether or not flaps are used.  State your hypotheses in terms of equations involving the model coefficients $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$, and draw a conclusion in terms of the strength of evidence against the null hypothesis.
+
+
